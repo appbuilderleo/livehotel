@@ -1,0 +1,209 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --canvas: #0D0B09;
+  --panel: #161310;
+  --surface-warm: #1F1A15;
+  --accent: #C8A468;
+  --accent-hover: #DFBE84;
+  --accent-muted: rgba(200, 164, 104, 0.22);
+  --ocean-tint: #2B5B66;
+  --text-primary: #F4EFE6;
+  --text-secondary: #B8AEA0;
+  --tshadow: 0 1px 2px rgba(5, 5, 10, 0.95), 0 3px 12px rgba(5, 5, 10, 0.78), 0 10px 44px rgba(5, 5, 10, 0.82);
+  --ease-cinematic: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-silk: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+html,
+body {
+  background-color: var(--canvas);
+  color: var(--text-primary);
+  font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+  overflow-x: hidden;
+  overflow-x: clip;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+/* Lenis smooth scroll recommended base styles */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+/* Skip link for keyboard accessibility */
+.skip-link {
+  position: fixed;
+  top: -100px;
+  left: 1.5rem;
+  z-index: 9999;
+  background: var(--accent);
+  color: var(--canvas);
+  padding: 0.75rem 1.25rem;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.75rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  font-weight: 500;
+  border-radius: 2px;
+  transition: top 0.3s var(--ease-cinematic);
+}
+
+.skip-link:focus {
+  top: 1.25rem;
+  outline: 2px solid var(--text-primary);
+  outline-offset: 2px;
+}
+
+/* Focus visible styling in brand accent */
+*:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+/* Fixed atmospheric coastal environment layer (64s slow cycle, negative delay) */
+.ambient-environment {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.ambient-environment::before {
+  content: "";
+  position: absolute;
+  inset: -20%;
+  background:
+    radial-gradient(circle at 18% 22%, rgba(200, 164, 104, 0.055) 0%, transparent 45%),
+    radial-gradient(circle at 82% 76%, rgba(43, 91, 102, 0.06) 0%, transparent 50%),
+    radial-gradient(circle at 50% 50%, rgba(22, 19, 16, 0.35) 0%, rgba(13, 11, 9, 0.85) 100%);
+  animation: coastalDrift 64s ease-in-out -18s infinite alternate;
+  will-change: transform, opacity;
+}
+
+@keyframes coastalDrift {
+  0% {
+    transform: translate3d(-1.5%, -1%, 0) scale(1);
+    opacity: 0.82;
+  }
+  100% {
+    transform: translate3d(1.5%, 1.2%, 0) scale(1.04);
+    opacity: 1;
+  }
+}
+
+/* Pause all looping animations when tab is hidden */
+body.paused *,
+body.paused *::before,
+body.paused *::after {
+  animation-play-state: paused !important;
+}
+
+/* 4-Layer Legibility System for Live Video Stages */
+/* Layer 1: Global Base Scrim */
+.scrim-global {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 2;
+  background:
+    linear-gradient(180deg, rgba(10, 9, 7, 0.58) 0%, rgba(10, 9, 7, 0.14) 24%, rgba(10, 9, 7, 0.18) 70%, rgba(13, 11, 9, 0.92) 100%),
+    radial-gradient(ellipse 120% 90% at 50% 45%, rgba(10, 9, 7, 0.05) 32%, rgba(10, 9, 7, 0.66) 100%);
+}
+
+/* Layer 2: Per-Band Radial Scrim */
+.narrative-band {
+  text-shadow: var(--tshadow);
+  will-change: transform, opacity;
+}
+
+.narrative-band::before {
+  content: "";
+  position: absolute;
+  inset: -14% -10%;
+  pointer-events: none;
+  z-index: -1;
+  opacity: calc(0.28 + 0.72 * var(--k, 1));
+  background: radial-gradient(
+    ellipse 78% 68% at 50% 50%,
+    rgba(8, 7, 5, 0.74) 0%,
+    rgba(8, 7, 5, 0.52) 48%,
+    rgba(8, 7, 5, 0) 78%
+  );
+}
+
+/* Layer 3: Disable text-shadow on buttons so labels stay razor crisp */
+.narrative-band .btn,
+.btn {
+  text-shadow: none;
+}
+
+/* Layer 4: Chip Scrim for HUD / Mono Labels over live video */
+.chip-scrim {
+  background: rgba(13, 11, 9, 0.64);
+  border: 1px solid rgba(200, 164, 104, 0.34);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  text-shadow: 0 1px 3px rgba(5, 5, 10, 0.88);
+}
+
+/* Masked text reveal descender breathing room (prevents clipping g, y, p) */
+.mask-line {
+  overflow: hidden;
+  padding-bottom: 0.2em;
+  margin-bottom: -0.2em;
+  padding-top: 0.06em;
+  margin-top: -0.06em;
+}
+
+/* Promoted compositor layer for scrubbed video */
+.scrub-video-layer {
+  will-change: transform;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+}
+
+/* Short desktop window guard: hide secondary HUD readouts when height < 560px */
+@media (max-height: 560px) {
+  .hud-secondary {
+    display: none !important;
+  }
+}
+
+/* Coarse pointer 44px touch target floor without breaking responsive visibility */
+@media (pointer: coarse) {
+  .btn:not(.hidden),
+  .touch-target:not(.hidden) {
+    min-height: 44px;
+  }
+}
+
+/* Complete Reduced-Motion Support */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    transition-delay: 0s !important;
+    scroll-behavior: auto !important;
+  }
+}
