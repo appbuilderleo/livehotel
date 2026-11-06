@@ -61,7 +61,7 @@ export const HotelNavigation: React.FC<HotelNavigationProps> = ({
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
           isScrolled
             ? 'bg-canvas/85 backdrop-blur-md border-b border-accent/20 py-3.5 shadow-2xl'
-            : 'bg-gradient-to-b from-canvas/80 via-canvas/35 to-transparent py-5'
+            : 'bg-transparent py-5'
         }`}
       >
         {/* Top Global Scroll Progress Hairline */}

@@ -116,40 +116,13 @@ body.paused *::after {
   animation-play-state: paused !important;
 }
 
-/* 4-Layer Legibility System for Live Video Stages */
-/* Layer 1: Global Base Scrim */
-.scrim-global {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  z-index: 2;
-  background:
-    linear-gradient(180deg, rgba(10, 9, 7, 0.58) 0%, rgba(10, 9, 7, 0.14) 24%, rgba(10, 9, 7, 0.18) 70%, rgba(13, 11, 9, 0.92) 100%),
-    radial-gradient(ellipse 120% 90% at 50% 45%, rgba(10, 9, 7, 0.05) 32%, rgba(10, 9, 7, 0.66) 100%);
-}
-
-/* Layer 2: Per-Band Radial Scrim */
+/* Typography legibility over pure unobstructed video stages */
 .narrative-band {
   text-shadow: var(--tshadow);
   will-change: transform, opacity;
 }
 
-.narrative-band::before {
-  content: "";
-  position: absolute;
-  inset: -14% -10%;
-  pointer-events: none;
-  z-index: -1;
-  opacity: calc(0.28 + 0.72 * var(--k, 1));
-  background: radial-gradient(
-    ellipse 78% 68% at 50% 50%,
-    rgba(8, 7, 5, 0.74) 0%,
-    rgba(8, 7, 5, 0.52) 48%,
-    rgba(8, 7, 5, 0) 78%
-  );
-}
-
-/* Layer 3: Disable text-shadow on buttons so labels stay razor crisp */
+/* Disable text-shadow on buttons so labels stay razor crisp */
 .narrative-band .btn,
 .btn {
   text-shadow: none;

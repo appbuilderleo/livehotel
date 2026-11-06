@@ -397,9 +397,6 @@ export const ScrollVideo = forwardRef<ScrollVideoHandle, ScrollVideoProps>(
           />
         )}
 
-        {/* Layer D: 10k-websites-skill Layer 1 Global Base Scrim */}
-        <div className="scrim-global" aria-hidden="true" />
-
         {/* Honest SVG Loading Ring while video Blob streams (hidden once ready or in reduced motion) */}
         {!prefersReducedMotion && !videoReady && !videoFailed && isActiveOrNear && (
           <div

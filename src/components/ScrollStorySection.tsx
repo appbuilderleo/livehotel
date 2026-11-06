@@ -442,7 +442,6 @@ export const ScrollStorySection: React.FC<ScrollStorySectionProps> = ({
                 className="w-full h-full object-cover"
                 loading={isHeroChapter ? 'eager' : 'lazy'}
               />
-              <div className="scrim-global" />
               <div className="absolute bottom-4 left-4 chip-scrim px-3 py-1 rounded-full font-mono text-xs text-accent">
                 CHAPTER {chapter.chapterNumber} · {chapter.chapterTitle[locale]}
               </div>
